@@ -1,14 +1,17 @@
-//const withTM = require('next-transpile-modules')(['@babylonjs']);
-const withTM = require("next-transpile-modules")(["tiu-ui"]); // As per comment.
-const withPlugins = require("next-compose-plugins");
+// //const withTM = require('next-transpile-modules')(['@babylonjs']);
+// const withTM = require("next-transpile-modules")(["tiu-ui"]); // As per comment.
+// const withPlugins = require("next-compose-plugins");
 
 const nextConfig = {
   target: "serverless",
   webpack: function (config) {
-    /// below is not required for the problem described. Just for reference.(es6)
-    config.module.rules.push({ test: /\.yml$/, use: "raw-loader" });
+    // Svg loader
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: ["@svgr/webpack"],
+    });
     return config;
   },
 };
 
-module.exports = withPlugins([withTM], nextConfig);
+module.exports = nextConfig;
