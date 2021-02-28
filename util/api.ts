@@ -1,10 +1,17 @@
 import axios from "axios";
-export const sendVideo = async (data: FormData, socketId: string) => {
-  data.append("socketId", socketId);
+export const sendVideo = async (
+  data: FormData,
+  socketId: string,
+  onUploadProgress?: (progressEvent: any) => void
+) => {
+  if (!data.get("socketId")) {
+    data.append("socketId", socketId);
+  }
   const res = await axios.post("http://localhost:3001/vid", data, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
+    onUploadProgress: onUploadProgress,
   });
 
   return res.data;
