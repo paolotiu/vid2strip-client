@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve">
+<g>
+	<path style="fill:#303C42;" d="M22.921,13.229l-4.5-7C18.328,6.086,18.17,6,18,6H6C5.83,6,5.672,6.086,5.579,6.229l-4.5,7   C1.027,13.31,1,13.404,1,13.5V21c0,1.103,0.897,2,2,2h18c1.103,0,2-0.897,2-2v-7.5C23,13.404,22.973,13.31,22.921,13.229z"/>
+	<path style="fill:#546E7A;" d="M6.273,7h11.453l3.857,6H18.5c-1.103,0-2,0.897-2,2c0,0.551-0.448,1-1,1h-7c-0.552,0-1-0.449-1-1   c0-1.103-0.897-2-2-2H2.416L6.273,7z"/>
+	<path style="fill:#546E7A;" d="M22,21c0,0.551-0.448,1-1,1H3c-0.552,0-1-0.449-1-1v-7h3.5c0.552,0,1,0.449,1,1c0,1.103,0.897,2,2,2   h7c1.103,0,2-0.897,2-2c0-0.551,0.448-1,1-1H22V21z"/>
+	<polygon style="opacity:0.2;" points="5.261,13 6.282,11 6.273,7 2.416,13  "/>
+	<polygon style="opacity:0.08;fill:#FFFFFF;" points="21.584,13 17.725,7.004 17.725,11 18.741,13  "/>
+	<polygon style="opacity:0.03;fill:#FFFFFF;" points="17.725,11 17.725,7.004 6.273,7 6.282,11  "/>
+	<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="8.342" y1="16.2556" x2="15.6611" y2="8.9365">
+		<stop offset="0" style="stop-color:#000000;stop-opacity:0"/>
+		<stop offset="1" style="stop-color:#000000;stop-opacity:0.1"/>
+	</linearGradient>
+	<path style="fill:url(#SVGID_1_);" d="M6.282,11l-1.02,2H5.5c1.103,0,2,0.897,2,2c0,0.551,0.448,1,1,1h7c0.552,0,1-0.449,1-1   c0-1.103,0.897-2,2-2h0.241l-1.016-2H6.282z"/>
+	<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="11.4484" y1="12.1092" x2="21.3764" y2="22.0372">
+		<stop offset="0" style="stop-color:#000000;stop-opacity:0.1"/>
+		<stop offset="1" style="stop-color:#000000;stop-opacity:0"/>
+	</linearGradient>
+	<path style="fill:url(#SVGID_2_);" d="M22,21v-7h-3.5c-0.552,0-1,0.449-1,1c0,1.103-0.897,2-2,2h-7   c-0.537,0-1.022-0.215-1.382-0.56l5.56,5.56H21C21.552,22,22,21.551,22,21z"/>
+	<path style="fill:#303C42;" d="M9.354,4.854L11.5,2.707V13.5c0,0.276,0.224,0.5,0.5,0.5s0.5-0.224,0.5-0.5V2.707l2.146,2.146   C14.744,4.951,14.872,5,15,5s0.256-0.049,0.354-0.146c0.195-0.195,0.195-0.512,0-0.707l-3-3c-0.195-0.195-0.512-0.195-0.707,0l-3,3   c-0.195,0.195-0.195,0.512,0,0.707S9.158,5.049,9.354,4.854z"/>
+	<linearGradient id="SVGID_3_" gradientUnits="userSpaceOnUse" x1="2.6631" y1="9.8219" x2="23.8189" y2="19.687">
+		<stop offset="0" style="stop-color:#FFFFFF;stop-opacity:0.2"/>
+		<stop offset="1" style="stop-color:#FFFFFF;stop-opacity:0"/>
+	</linearGradient>
+	<path style="fill:url(#SVGID_3_);" d="M22.921,13.229l-4.5-7C18.328,6.086,18.17,6,18,6h-5.5V2.707l2.146,2.146   C14.744,4.951,14.872,5,15,5s0.256-0.049,0.354-0.146c0.195-0.195,0.195-0.512,0-0.707l-3-3c-0.195-0.195-0.512-0.195-0.707,0l-3,3   c-0.195,0.195-0.195,0.512,0,0.707s0.512,0.195,0.707,0L11.5,2.707V6H6C5.83,6,5.672,6.086,5.579,6.229l-4.5,7   C1.027,13.31,1,13.404,1,13.5V21c0,1.103,0.897,2,2,2h18c1.103,0,2-0.897,2-2v-7.5C23,13.404,22.973,13.31,22.921,13.229z"/>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+
+	
+	<metadata>
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+			<rdf:Description about="https://iconscout.com/legal#licenses" dc:title="Document" dc:description="Document" dc:publisher="Iconscout" dc:date="2017-03-22" dc:format="image/svg+xml" dc:language="en">
+				<dc:creator>
+					<rdf:Bag>
+						<rdf:li/>
+					</rdf:Bag>
+				</dc:creator>
+			</rdf:Description>
+		</rdf:RDF>
+    </metadata></svg>
