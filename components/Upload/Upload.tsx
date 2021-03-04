@@ -8,7 +8,7 @@ interface Props {
 
 export const Upload = ({ onChange, vidName }: Props) => {
   return (
-    <div className="grid w-full max-w-6xl gap-5 px-4 py-8 bg-gray-100 border rounded justify-items-center ">
+    <div className="grid w-full gap-5 px-4 py-8 bg-gray-100 border rounded justify-items-center ">
       <UploadSvg className="w-20" />
       <div>
         <label htmlFor="vid" className="p-2 font-bold rounded cursor-pointer">

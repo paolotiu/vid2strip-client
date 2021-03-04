@@ -6,6 +6,7 @@ import { Socket } from "socket.io-client";
 import { Divider } from "tiu-ui";
 import { Upload } from "components/Upload/Upload";
 import Progress from "components/Progress/Progress";
+import Strip from "components/Strip/Strip";
 interface Props {
   socket?: Socket;
   socketId: string;
@@ -50,6 +51,8 @@ const Home = ({ socketId, socket }: Props) => {
         setProgress((prev) => ({ ...prev, frames: res.value }));
       } else if (res.event === "color") {
         setProgress((prev) => ({ ...prev, color: res.value }));
+      } else if (res.event === "finish") {
+        window.scrollTo();
       }
     });
 
@@ -68,40 +71,45 @@ const Home = ({ socketId, socket }: Props) => {
         <title>Vid2Strip</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="grid items-center gap-4 p-8 justify-items-center ">
-        <Upload onChange={onChange} vidName={vidName} />
-        <div className="w-full max-w-6xl">
-          <Divider text="OR" />
-        </div>
-        <div>
-          <label htmlFor="ytLink">Youtube Link:</label>
-          <input
-            type="text"
-            name="ytLink"
-            value={ytLink}
-            onChange={(e) => setYtLink(e.target.value)}
-            className="pl-2 ml-3 border rounded"
-          />
-        </div>
-        <div>
-          <form action="" onSubmit={submitHandler}>
-            <button type="submit">Submit</button>
-          </form>
-        </div>
-        <div className="grid items-center w-full grid-flow-col gap-10 justify-items-center py-7">
-          <Progress label="Upload" progress={progress.upload} />
-          <Progress label="Frames" progress={progress.frames} />
-          <Progress label="Colors" progress={progress.color} />
+      <main className="grid place-items-center ">
+        <div className="grid items-center w-full gap-4 p-8 max-w-7xl justify-items-center ">
+          <div className="grid w-full gap-4 p-4 pb-6 border-2 border-dashed justify-items-center">
+            <Upload onChange={onChange} vidName={vidName} />
+            <div className="w-full">
+              <Divider text="OR" />
+            </div>
+            <div>
+              <label htmlFor="ytLink">Youtube Link:</label>
+              <input
+                type="text"
+                name="ytLink"
+                value={ytLink}
+                onChange={(e) => setYtLink(e.target.value)}
+                className="pl-2 ml-3 border rounded"
+              />
+            </div>
+          </div>
+          <div>
+            <form action="" onSubmit={submitHandler}>
+              <button type="submit">Submit</button>
+            </form>
+          </div>
+          {progress.upload ? (
+            <div className="grid items-center w-full grid-flow-col gap-10 justify-items-center py-7">
+              <Progress label="Upload" progress={progress.upload} />
+              <Progress label="Frames" progress={progress.frames} />
+              <Progress label="Colors" progress={progress.color} />
+            </div>
+          ) : (
+            ""
+          )}
+          {image && (
+            <div>
+              <Strip src={image} />
+            </div>
+          )}
         </div>
       </main>
-
-      {image && <img src={image} alt="" className="p-10 " />}
-      <a href={image} download="vid2strip">
-        {" "}
-        Download
-      </a>
-
-      <Link href="/other">Other</Link>
     </div>
   );
 
