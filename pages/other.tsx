@@ -12,6 +12,11 @@ const Other = ({ socket, socketId }: Props) => {
     socket?.on("pong", () => {
       console.log("pong");
     });
+
+    return () => {
+      // Cleanup
+      socket?.off("pong");
+    };
   }, [socket]);
   return (
     <>

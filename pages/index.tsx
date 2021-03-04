@@ -3,19 +3,20 @@ import Head from "next/head";
 import Link from "next/link";
 import { sendVideo, sendYoutubeLink } from "../util/api";
 import { Socket } from "socket.io-client";
-import { CircleProgress, Divider } from "tiu-ui";
+import { Divider } from "tiu-ui";
 import { Upload } from "components/Upload/Upload";
+import Progress from "components/Progress/Progress";
 interface Props {
   socket?: Socket;
   socketId: string;
 }
 const Home = ({ socketId, socket }: Props) => {
   const [data, setData] = useState<FormData>();
+  const [isConnected, setIsConnected] = useState(false);
   const [ytLink, setYtLink] = useState("");
   const [image, setImage] = useState("");
   const [vidName, setVidName] = useState("");
-  const [status, setStatus] = useState("Idle");
-  const [progress, setProgress] = useState({ upload: 0, frames: 0 });
+  const [progress, setProgress] = useState({ upload: 0, frames: 0, color: 0 });
 
   // For real time prgress indicator of upload
   // Passed on to the axios request
@@ -39,11 +40,16 @@ const Home = ({ socketId, socket }: Props) => {
   };
 
   useEffect(() => {
+    // On connect
+    socket?.on("connect", () => {
+      setIsConnected(true);
+    });
     // Socket event listener
     socket?.on("status", (res: any) => {
-      console.log(res);
       if (res.event === "Frames") {
         setProgress((prev) => ({ ...prev, frames: res.value }));
+      } else if (res.event === "color") {
+        setProgress((prev) => ({ ...prev, color: res.value }));
       }
     });
 
@@ -53,10 +59,13 @@ const Home = ({ socketId, socket }: Props) => {
     };
   }, [socket]);
 
+  if (!isConnected) {
+    return <div></div>;
+  }
   return (
     <div>
       <Head>
-        <title>{status}</title>
+        <title>Vid2Strip</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="grid items-center gap-4 p-8 justify-items-center ">
@@ -79,6 +88,11 @@ const Home = ({ socketId, socket }: Props) => {
             <button type="submit">Submit</button>
           </form>
         </div>
+        <div className="grid items-center w-full grid-flow-col gap-10 justify-items-center py-7">
+          <Progress label="Upload" progress={progress.upload} />
+          <Progress label="Frames" progress={progress.frames} />
+          <Progress label="Colors" progress={progress.color} />
+        </div>
       </main>
 
       {image && <img src={image} alt="" className="p-10 " />}
@@ -87,29 +101,13 @@ const Home = ({ socketId, socket }: Props) => {
         Download
       </a>
 
-      <div className="grid items-center grid-flow-col gap-10 justify-items-center py-7">
-        <div className="grid justify-items-center">
-          <CircleProgress
-            progress={progress.upload}
-            completedProgressBarColor="#91db8f"
-          />
-          <p>Uploading...</p>
-        </div>
-        <div className="grid justify-items-center">
-          <CircleProgress
-            progress={progress.frames}
-            completedProgressBarColor="#91db8f"
-          />
-          <p>Extracting Frames</p>
-        </div>
-      </div>
       <Link href="/other">Other</Link>
     </div>
   );
 
   async function submitHandler(e: React.SyntheticEvent) {
     e.preventDefault();
-    setProgress({ upload: 0, frames: 0 });
+    setProgress({ upload: 0, frames: 0, color: 0 });
     if (ytLink) {
       const res = await sendYoutubeLink(ytLink, socketId);
       setImage(res.image);
