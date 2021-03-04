@@ -14,6 +14,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     setSocket(socket);
 
     return () => {
+      // Close socket one user closes website
       socket.close();
     };
   }, []);
