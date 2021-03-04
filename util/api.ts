@@ -17,6 +17,14 @@ export const sendVideo = async (
   return res.data;
 };
 
+export const sendYoutubeLink = async (link: string, socketId?: string) => {
+  const res = await axios.post("http://localhost:3001/yt", {
+    url: link,
+    socketId,
+  });
+  return res.data;
+};
+
 export const testCall = async (socketId: string) => {
   const res = await axios.post("http://localhost:3001", {
     socketId,
