@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import { sendVideo } from "../util/api";
+import { sendVideo, sendYoutubeLink } from "../util/api";
 import { Socket } from "socket.io-client";
 import { CircleProgress, Divider } from "tiu-ui";
 import { Upload } from "components/Upload/Upload";
@@ -11,6 +11,7 @@ interface Props {
 }
 const Home = ({ socketId, socket }: Props) => {
   const [data, setData] = useState<FormData>();
+  const [ytLink, setYtLink] = useState("");
   const [image, setImage] = useState("");
   const [vidName, setVidName] = useState("");
   const [status, setStatus] = useState("Idle");
@@ -60,28 +61,32 @@ const Home = ({ socketId, socket }: Props) => {
       </Head>
       <main className="grid items-center gap-4 p-8 justify-items-center ">
         <Upload onChange={onChange} vidName={vidName} />
-        {/* <form
-          action=""
-          onSubmit={async (e) => {
-            e.preventDefault();
-            setProgress({ upload: 0, frames: 0 });
-            if (data) {
-              const res = await sendVideo(data, socketId, onUploadProgress);
-              setImage(res.image);
-            }
-          }}
-        >
-          <button type="submit">Submit</button>
-        </form> */}
         <div className="w-full max-w-6xl">
           <Divider text="OR" />
         </div>
+        <div>
+          <label htmlFor="ytLink">Youtube Link:</label>
+          <input
+            type="text"
+            name="ytLink"
+            value={ytLink}
+            onChange={(e) => setYtLink(e.target.value)}
+            className="pl-2 ml-3 border rounded"
+          />
+        </div>
+        <div>
+          <form action="" onSubmit={submitHandler}>
+            <button type="submit">Submit</button>
+          </form>
+        </div>
       </main>
+
       {image && <img src={image} alt="" className="p-10 " />}
-      {/* <a href={image} download="Image">
+      <a href={image} download="vid2strip">
         {" "}
         Download
-      </a> */}
+      </a>
+
       <div className="grid items-center grid-flow-col gap-10 justify-items-center py-7">
         <div className="grid justify-items-center">
           <CircleProgress
@@ -101,6 +106,18 @@ const Home = ({ socketId, socket }: Props) => {
       <Link href="/other">Other</Link>
     </div>
   );
+
+  async function submitHandler(e: React.SyntheticEvent) {
+    e.preventDefault();
+    setProgress({ upload: 0, frames: 0 });
+    if (ytLink) {
+      const res = await sendYoutubeLink(ytLink, socketId);
+      setImage(res.image);
+    } else if (data) {
+      const res = await sendVideo(data, socketId, onUploadProgress);
+      setImage(res.image);
+    }
+  }
 };
 
 export default Home;
