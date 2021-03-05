@@ -1,22 +1,49 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useReducer, useState } from "react";
 import Head from "next/head";
-import Link from "next/link";
 import { sendVideo, sendYoutubeLink } from "../util/api";
 import { Socket } from "socket.io-client";
 import { Divider } from "tiu-ui";
-import { Upload } from "components/Upload/Upload";
+import { Action, FileState, Upload } from "components/Upload/Upload";
 import Progress from "components/Progress/Progress";
 import Strip from "components/Strip/Strip";
 interface Props {
   socket?: Socket;
   socketId: string;
 }
+
+const reducer = (state: FileState, action: Action): FileState => {
+  switch (action.type) {
+    case "SET_DROP_DEPTH":
+      if (action.dropDepth) {
+        return { ...state, dropDepth: action.dropDepth };
+      }
+      return state;
+    case "SET_IN_DROP_ZONE":
+      if (action.isInDropZone) {
+        return { ...state, isInDropZone: action.isInDropZone };
+      }
+      return state;
+    case "SET_FILE":
+      if (action.file) {
+        return { ...state, file: action.file, name: action.name || "" };
+      }
+      return state;
+    default:
+      return state;
+  }
+};
+
 const Home = ({ socketId, socket }: Props) => {
-  const [data, setData] = useState<FormData>();
+  // const [data, setData] = useState<FormData>();
+  const [data, dispatch] = useReducer(reducer, {
+    dropDepth: 0,
+    isInDropZone: false,
+    file: null,
+    name: "",
+  });
   const [isConnected, setIsConnected] = useState(false);
   const [ytLink, setYtLink] = useState("");
   const [image, setImage] = useState("");
-  const [vidName, setVidName] = useState("");
   const [progress, setProgress] = useState({ upload: 0, frames: 0, color: 0 });
 
   // For real time prgress indicator of upload
@@ -34,9 +61,9 @@ const Home = ({ socketId, socket }: Props) => {
     const files = e.target.files;
 
     if (files?.length) {
-      setVidName(files[0].name);
       formData.append("vid", files[0]);
-      setData(formData);
+      dispatch({ type: "SET_FILE", file: formData, name: files[0].name });
+      // setData(formData);
     }
   };
 
@@ -74,7 +101,12 @@ const Home = ({ socketId, socket }: Props) => {
       <main className="grid place-items-center ">
         <div className="grid items-center w-full gap-4 p-8 max-w-7xl justify-items-center ">
           <div className="grid w-full gap-4 p-4 pb-6 border-2 border-dashed justify-items-center">
-            <Upload onChange={onChange} vidName={vidName} />
+            <Upload
+              onChange={onChange}
+              vidName={data.name}
+              data={data}
+              dispatch={dispatch}
+            />
             <div className="w-full">
               <Divider text="OR" />
             </div>
@@ -119,8 +151,8 @@ const Home = ({ socketId, socket }: Props) => {
     if (ytLink) {
       const res = await sendYoutubeLink(ytLink, socketId);
       setImage(res.image);
-    } else if (data) {
-      const res = await sendVideo(data, socketId, onUploadProgress);
+    } else if (data.file) {
+      const res = await sendVideo(data.file, socketId, onUploadProgress);
       setImage(res.image);
     }
   }
