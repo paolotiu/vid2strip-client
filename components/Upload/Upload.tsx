@@ -8,7 +8,11 @@ interface Props {
   dispatch: React.Dispatch<Action>;
 }
 
-type ActionTypes = "SET_DROP_DEPTH" | "SET_IN_DROP_ZONE" | "SET_FILE";
+type ActionTypes =
+  | "SET_DROP_DEPTH"
+  | "SET_IN_DROP_ZONE"
+  | "SET_FILE"
+  | "REMOVE_FILE";
 
 export interface FileState {
   dropDepth: number;
@@ -47,9 +51,13 @@ export const Upload = ({ onChange, vidName, data, dispatch }: Props) => {
     e.preventDefault();
     e.stopPropagation();
   };
+
+  const handleClear = () => {
+    dispatch({ type: "REMOVE_FILE" });
+  };
   return (
     <div
-      className="grid w-full gap-5 px-4 py-8 bg-gray-100 border rounded justify-items-center "
+      className="relative grid w-full gap-5 px-4 py-8 bg-gray-100 border rounded justify-items-center "
       onDrop={(e) => handleDrop(e)}
       onDragOver={(e) => handleDragOver(e)}
       onDragEnter={(e) => handleDragEnter(e)}
@@ -70,6 +78,9 @@ export const Upload = ({ onChange, vidName, data, dispatch }: Props) => {
         />
       </div>
       {vidName && <p className="text-xs"> {vidName}</p>}
+      <span className="absolute right-5 top-2" onClick={handleClear}>
+        Clear
+      </span>
     </div>
   );
 };

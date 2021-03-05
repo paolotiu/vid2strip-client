@@ -28,6 +28,8 @@ const reducer = (state: FileState, action: Action): FileState => {
         return { ...state, file: action.file, name: action.name || "" };
       }
       return state;
+    case "REMOVE_FILE":
+      return { ...state, file: null, name: "" };
     default:
       return state;
   }
