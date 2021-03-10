@@ -128,6 +128,7 @@ const Home = ({ socketId, socket }: Props) => {
         <title>Vid2Strip</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <div className="p-6 text-xl sm:text-2xl">a1000Frames</div>
       <main className="grid place-items-center ">
         <div className="grid items-center w-full gap-4 p-8 max-w-7xl justify-items-center ">
           <div className="grid w-full gap-4 p-4 pb-6 border-2 border-dashed justify-items-center">
@@ -157,9 +158,11 @@ const Home = ({ socketId, socket }: Props) => {
               <button
                 type="submit"
                 className={`px-5 py-2 text-2xl font-bold text-white rounded ${
-                  progress.processing ? "bg-gray-200" : "bg-b"
+                  progress.processing || (!data.file && !ytLink)
+                    ? "bg-gray-200"
+                    : "bg-b"
                 }`}
-                disabled={progress.processing}
+                disabled={progress.processing || (!data.file && !ytLink)}
               >
                 Generate Strip
               </button>

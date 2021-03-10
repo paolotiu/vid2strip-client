@@ -74,7 +74,7 @@ export const Upload = ({ onChange, vidName, dispatch, data }: Props) => {
       <UploadSvg className="w-20" />
       {vidName && <p className="py-3 text-xs text-center"> {vidName}</p>}
       <div>
-        <button className="p-2 px-3 text-black transition transform bg-gray-200 rounded cursor-pointer hover:scale-105">
+        <button className="p-2 px-3 text-black transition transform bg-gray-200 border-2 border-gray-300 rounded cursor-pointer hover:scale-105">
           <label htmlFor="vid" className="cursor-pointer">
             Upload Video
           </label>
@@ -92,7 +92,7 @@ export const Upload = ({ onChange, vidName, dispatch, data }: Props) => {
         * Drag and drop a video or click the button.
       </p>
       <button
-        className="absolute p-1 text-sm rounded right-5 top-2"
+        className="absolute p-1 text-xs rounded sm:text-sm sm:right-5 sm:top-2 right-3 top-1"
         onClick={handleClear}
       >
         Clear
