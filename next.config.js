@@ -12,6 +12,9 @@ const nextConfig = {
     });
     return config;
   },
+  // env: {
+  //   API_URL: "https://vid2strip.herokuapp.com",
+  // },
 };
 
 module.exports = nextConfig;

@@ -5,7 +5,14 @@ module.exports = {
     fontFamily: {
       sans: ["Poppins", "sans-serif"],
     },
-    extend: {},
+
+    extend: {
+      colors: {
+        b: {
+          DEFAULT: "#5a727d",
+        },
+      },
+    },
   },
   variants: {
     extend: {},
