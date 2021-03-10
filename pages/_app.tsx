@@ -8,7 +8,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [id] = useState(Math.random().toString(36).substr(2, 9));
   useEffect(() => {
     // Socket connection
-    const socket = io("ws://localhost:3001");
+    const socket = io(process.env.API_URL || "http://localhost:3001");
     socket.emit("connectInit", id);
 
     setSocket(socket);

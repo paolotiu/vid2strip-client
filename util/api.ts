@@ -1,4 +1,5 @@
 import axios from "axios";
+const BASE_URL = process.env.API_URL || "http://localhost:3001";
 export const sendVideo = async (
   data: FormData,
   socketId: string,
@@ -7,7 +8,7 @@ export const sendVideo = async (
   if (!data.get("socketId")) {
     data.append("socketId", socketId);
   }
-  const res = await axios.post("http://localhost:3001/vid", data, {
+  const res = await axios.post(BASE_URL + "/vid", data, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
@@ -18,15 +19,16 @@ export const sendVideo = async (
 };
 
 export const sendYoutubeLink = async (link: string, socketId?: string) => {
-  const res = await axios.post("http://localhost:3001/yt", {
+  const res = await axios.post(BASE_URL + "/yt", {
     url: link,
     socketId,
   });
+
   return res.data;
 };
 
 export const testCall = async (socketId: string) => {
-  const res = await axios.post("http://localhost:3001", {
+  const res = await axios.post(BASE_URL, {
     socketId,
     id: "hgey",
   });
