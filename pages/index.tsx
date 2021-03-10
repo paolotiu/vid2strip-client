@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useReducer, useState } from "react";
 import Head from "next/head";
 import { sendVideo, sendYoutubeLink } from "../util/api";
 import { Socket } from "socket.io-client";
-import { Divider } from "tiu-ui";
+// import { Divider } from "tiu-ui";
 import { Action, FileState, Upload } from "components/Upload/Upload";
 import Progress from "components/Progress/Progress";
 import Strip from "components/Strip/Strip";
@@ -55,6 +55,7 @@ const Home = ({ socketId, socket }: Props) => {
     color: 0,
     completed: false,
     processing: false,
+    isYt: false,
   });
 
   // For real time prgress indicator of upload
@@ -92,6 +93,9 @@ const Home = ({ socketId, socket }: Props) => {
       } else if (res.event === "color") {
         // Add to color progress
         setProgress((prev) => ({ ...prev, color: res.value }));
+      } else if (res.event === "download") {
+        // yt download
+        setProgress((prev) => ({ ...prev, upload: res.value }));
       } else if (res.event === "finish") {
         // Finished
         setProgress((prev) => ({
@@ -134,7 +138,7 @@ const Home = ({ socketId, socket }: Props) => {
               dispatch={dispatch}
               isDragging={data.isInDropZone}
             />
-            <div className="w-full">
+            {/* <div className="w-full">
               <Divider text="OR" />
             </div>
             <div>
@@ -146,7 +150,7 @@ const Home = ({ socketId, socket }: Props) => {
                 onChange={(e) => setYtLink(e.target.value)}
                 className="pl-2 ml-3 border rounded "
               />
-            </div>
+            </div> */}
           </div>
           <div className="grid items-center gap-3 pt-10 justify-items-center">
             <form action="" onSubmit={submitHandler}>
@@ -164,7 +168,10 @@ const Home = ({ socketId, socket }: Props) => {
           </div>
           {progress.upload && !progress.completed ? (
             <div className="grid items-center w-full grid-flow-col gap-10 justify-items-center py-7">
-              <Progress label="Upload" progress={progress.upload} />
+              <Progress
+                label={progress.isYt ? "Download" : "Upload"}
+                progress={progress.upload}
+              />
               <Progress label="Frames" progress={progress.frames} />
               <Progress label="Colors" progress={progress.color} />
             </div>
@@ -198,6 +205,7 @@ const Home = ({ socketId, socket }: Props) => {
       color: 0,
       completed: false,
       processing: true,
+      isYt: false,
     });
     // Scroll to bottom (progress stuff)
     window.scrollTo({
@@ -207,6 +215,7 @@ const Home = ({ socketId, socket }: Props) => {
 
     if (ytLink) {
       const res = await apiHandler(sendYoutubeLink(ytLink, socketId));
+      setProgress((prev) => ({ ...prev, isYt: true }));
       if (res.error) {
         // Check errors
         setErrorMessage(res.error.message);
