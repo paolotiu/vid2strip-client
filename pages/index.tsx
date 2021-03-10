@@ -45,7 +45,7 @@ const Home = ({ socketId, socket }: Props) => {
     name: "",
   });
   const [isConnected, setIsConnected] = useState(false);
-  const [ytLink, setYtLink] = useState("");
+  const [ytLink] = useState("");
   const [image, setImage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
