@@ -4,9 +4,9 @@ import { sendVideo, sendYoutubeLink } from "../util/api";
 import { Socket } from "socket.io-client";
 // import { Divider } from "tiu-ui";
 import { Action, FileState, Upload } from "components/Upload/Upload";
-import Progress from "components/Progress/Progress";
 import Strip from "components/Strip/Strip";
 import { apiHandler } from "util/apiHandler";
+import { ProcessProgress } from "components/Progress/ProcessProgress";
 interface Props {
   socket?: Socket;
   socketId: string;
@@ -153,6 +153,13 @@ const Home = ({ socketId, socket }: Props) => {
               />
             </div> */}
           </div>
+          <ProcessProgress
+            upload={progress.upload}
+            frames={progress.frames}
+            color={progress.color}
+            isVisible={!!progress.upload && !progress.completed}
+            isYt={progress.isYt}
+          />
           <div className="grid items-center gap-3 pt-10 justify-items-center">
             <form action="" onSubmit={submitHandler}>
               <button
@@ -169,18 +176,7 @@ const Home = ({ socketId, socket }: Props) => {
             </form>
             {errorMessage && <div className="text-red-500">{errorMessage}</div>}
           </div>
-          {progress.upload && !progress.completed ? (
-            <div className="grid items-center w-full grid-flow-col gap-10 justify-items-center py-7">
-              <Progress
-                label={progress.isYt ? "Download" : "Upload"}
-                progress={progress.upload}
-              />
-              <Progress label="Frames" progress={progress.frames} />
-              <Progress label="Colors" progress={progress.color} />
-            </div>
-          ) : (
-            ""
-          )}
+
           {image && (
             <div>
               <Strip src={image} />
